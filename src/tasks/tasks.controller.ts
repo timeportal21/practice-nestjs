@@ -9,10 +9,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto, UpdateTaskStatusDto } from './dto/task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { Task, TaskStatus } from './task.model';
 import { TasksService } from './tasks.service';
+import { TaskSatusValidationPipe } from './pipes/task-satus-validation.pipe';
 
 @Controller('tasks')
 export class TasksController {
@@ -38,8 +39,8 @@ export class TasksController {
 
   @Patch('/:id')
   updateTaskStatus(
-    @Param('id') id: string,
-    @Body('status') status: TaskStatus,
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body('status', TaskSatusValidationPipe) status: TaskStatus,
   ): Task {
     return this.taskService.updateTaskStatus(id, status);
   }
