@@ -21,14 +21,6 @@ import { Task } from './task.entity';
 export class TasksController {
   constructor(private readonly taskService: TasksService) {}
 
-  // @Get()
-  // getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
-  //   if (Object.keys(filterDto).length) {
-  //     return this.taskService.getTaskWithFilters(filterDto);
-  //   }
-  //   return this.taskService.getAllTasks();
-  // }
-
   @Get()
   getTask(
     @Query(ValidationPipe) filterDto: GetTasksFilterDto,
